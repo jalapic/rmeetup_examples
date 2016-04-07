@@ -1,4 +1,8 @@
 
+detach(package:igraph)
+detach(package:sna)
+detach(package:network)
+
 ### vizNetwork
 
 ##vn1

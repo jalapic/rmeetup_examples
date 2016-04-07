@@ -1,11 +1,26 @@
+### networkD3
+
+detach(package:igraph)
+detach(package:sna)
+detach(package:network)
+
 library(networkD3)
 library(randomNames) 
 library(igraph)
 
+# random name function
+random_name_df  <- function(nl=100, size=1000, smpl=10, seed=221){
+df = data.frame(source = randomNames(size,which.names='both', name.order = 'first.last', name.sep=' '), target = '')
+df = df[rep(seq_len(nrow(df)), sample(1:smpl,nrow(df), replace=T)),]
+df = df[sample(nrow(df),nl),] 
+df$target = sample(df$source,nrow(df), replace = T)
+df = df[df[,1]!=df[,2], ] 
+return(df)
+}
+
 # Basic Graph
 df <- random_name_df(seed=221)
 g <- graph.data.frame(df, directed=F) # raw graph
-
 
 ## Make a vertices df
 vertices<-data.frame(
@@ -226,9 +241,5 @@ show(d3)
 
 
 
-
-
-####
-# Friendship Network...  with legend  - dark background color nodes fluorescent
 
 

@@ -1,5 +1,9 @@
 ### Sparrow Example.
 
+detach(package:igraph)
+detach(package:sna)
+detach(package:network)
+
 library(igraph)
 library(DT)            # pretty tables
 library(dplyr)
@@ -7,7 +11,68 @@ library(ggrepel)
 library(svgPanZoom)    # zoom, zoom
 library(SVGAnnotation) # to help svgPanZoom; it's a bioconductor package
 
-sparrows <- read.csv("C:/Users/curley1/Dropbox/Work/phylogenies/Comparative Dominance/Shizuka_Data/Shizuka2015_RawData/Patterson1977-6.csv", stringsAsFactors=FALSE)[,-1]
+sparrows <- structure(list(x1 = c(0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L), x2 = c(0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L
+), x3 = c(3L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), 
+x4 = c(0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L
+), x5 = c(9L, 0L, 14L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L), x6 = c(7L, 0L, 0L, 8L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+1L, 3L, 4L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L), x7 = c(0L, 0L, 1L, 0L, 0L, 7L, 0L, 0L, 0L, 0L, 1L, 0L, 
+1L, 0L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 0L, 0L, 0L, 
+0L), x8 = c(0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L), x9 = c(0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L), x10 = c(0L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 3L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L), x11 = c(0L, 2L, 1L, 0L, 4L, 5L, 3L, 0L, 0L, 0L, 
+0L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L), x12 = c(0L, 0L, 0L, 0L, 0L, 3L, 6L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L), x13 = c(0L, 0L, 4L, 0L, 11L, 5L, 10L, 0L, 
+0L, 0L, 0L, 4L, 0L, 0L, 2L, 0L, 1L, 0L, 0L, 0L, 2L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L), x14 = c(28L, 0L, 1L, 0L, 0L, 2L, 2L, 
+0L, 0L, 0L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 3L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L), x15 = c(0L, 0L, 4L, 0L, 1L, 12L, 
+30L, 0L, 0L, 0L, 12L, 1L, 0L, 3L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x16 = c(0L, 0L, 0L, 0L, 
+0L, 0L, 3L, 0L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x17 = c(0L, 0L, 2L, 
+0L, 5L, 5L, 5L, 0L, 0L, 0L, 2L, 3L, 3L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x18 = c(0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 22L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x19 = c(0L, 
+11L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 9L, 29L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x20 = c(0L, 
+2L, 0L, 8L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x21 = c(0L, 
+1L, 1L, 0L, 2L, 8L, 16L, 0L, 0L, 0L, 2L, 0L, 3L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x22 = c(0L, 
+0L, 7L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x23 = c(0L, 
+0L, 0L, 0L, 0L, 4L, 4L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+3L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x24 = c(2L, 
+0L, 0L, 0L, 5L, 4L, 3L, 0L, 0L, 0L, 0L, 0L, 0L, 9L, 0L, 0L, 
+2L, 0L, 0L, 0L, 2L, 1L, 0L, 0L, 0L, 0L, 0L, 0L), x25 = c(1L, 
+0L, 2L, 0L, 9L, 5L, 15L, 0L, 0L, 0L, 0L, 0L, 2L, 1L, 1L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x26 = c(0L, 
+0L, 0L, 0L, 0L, 0L, 3L, 0L, 0L, 0L, 1L, 0L, 0L, 1L, 0L, 0L, 
+5L, 4L, 0L, 0L, 9L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x27 = c(0L, 
+0L, 0L, 0L, 0L, 0L, 2L, 0L, 0L, 0L, 0L, 0L, 1L, 0L, 2L, 0L, 
+0L, 0L, 0L, 0L, 7L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), x28 = c(0L, 
+4L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 0L, 
+0L, 0L, 0L, 0L, 2L, 0L, 0L, 0L, 0L, 0L, 0L, 0L)), .Names = c("x1", 
+"x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11", 
+"x12", "x13", "x14", "x15", "x16", "x17", "x18", "x19", "x20", 
+"x21", "x22", "x23", "x24", "x25", "x26", "x27", "x28"), class = "data.frame", row.names = c(NA, 
+-28L))
+
 sparrows <- sparrows[-8,-8]
 rownames(sparrows)<-colnames(sparrows)
 
@@ -49,6 +114,7 @@ library(igraph)
 library(network)
 library(sna)
 library(ggnetwork)
+
 # ggnetwork visualize
 set.seed(777)
 dat <- ggnetwork(g, layout="fruchtermanreingold", arrow.gap=0.0, cell.jitter=0)
@@ -79,5 +145,3 @@ svgPanZoom(svgPlot(show(gg), height=3, width=3),
 
 
 
-
-#REF:  https://rud.is/projects/clinton_emails_01.html

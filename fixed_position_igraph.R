@@ -51,10 +51,3 @@ for(time in seq(1, total_time,dt)){
 }
 dev.off()
 
-
-
-##### ------
-
-# Weighted Networks require a bit more work....
-
-# Node sizes increasing over time

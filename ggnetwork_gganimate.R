@@ -1,12 +1,17 @@
-## Animation 2.
+
+detach(package:sna)
+detach(package:network)
+detach(package:igraph)
+
+
 library(igraph)
 library(dplyr)
 library(ggnetwork)
 library(gganimate)
 library(ggplot2)
+
 ### ggnetwork + gganimate
 
-### This works, I think
 
 N=120
 set.seed(140)
@@ -25,6 +30,7 @@ df2 <- do.call('rbind', Map(cbind, results, time=1:nrow(df1)))
 
 
 ## need to find which time each node first appears and then add an NA for that node from that time onwards
+# this could be tidied up a bit
 library(dplyr)
 head(df2)
 mintimes<-rbind(
@@ -60,4 +66,42 @@ p=ggplot(df3, aes(x = x, y = y, xend = xend, yend = yend, frame=time)) +
 
 animation::ani.options(interval=0.25)
 gg_animate(p, 'animation1.mp4', title_frame = FALSE)
+
+
+
+
+
+## Animation 3.
+
+# take df3 from above
+
+head(df3)
+
+df3.sp <- split(df3, df3$time)
+
+#setwd for output
+setwd("C:/Users/curley1/Dropbox/Work/R/RMeetup/presentation/gists/gistimgsvg1")
+
+
+#Time loop starts
+for(i in 1:max(df3$time)){
+  
+  tmp<-rbind(df3.sp[[i]],data.frame(x=NA,y=NA,Group=1:max(df3$Group),na.x=NA,vertex.names=NA,xend=NA,yend=NA,na.y=NA,time=NA))
+  
+  pp <- ggplot(tmp, aes(x = x, y = y, xend = xend, yend = yend)) +
+    geom_edges(color = "black") +
+    geom_nodes(aes(color = factor(Group)), size = 8) + 
+    geom_nodetext(aes(label = vertex.names),color="black", fontface = "bold") +
+    theme_blank() +
+    xlim(0,1)+ylim(0,1) +
+    theme(legend.position="none") +
+    guides(color=guide_legend(keyheight=0.3,default.unit="inch",override.aes = list(size=6)))
+  
+  ggsave(pp,filename=paste0("output_",i,".png", sep=""))
+  
+  
+}
+
+dev.off()
+
 

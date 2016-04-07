@@ -1,5 +1,9 @@
 ### From ggnetwork vignette:
 
+detach(package:igraph)
+detach(package:sna)
+detach(package:network)
+
 library(ggplot2) #must be >2.0.0
 library(ggnetwork)
 library(network)

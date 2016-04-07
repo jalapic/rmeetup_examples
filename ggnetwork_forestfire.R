@@ -1,7 +1,13 @@
+# may need to detach sna/network if have them loaded
+
+detach(package:igraph)
+detach(package:sna)
+detach(package:network)
 
 library(igraph)
 library(viridis)
 library(ggnetwork)
+library(ggplot2)
 
 set.seed(56)
 g <- sample_forestfire(99, fw.prob=0.3,bw.factor=.9)
