@@ -4,13 +4,13 @@ library(threejs)
 
 ## Function for making random name edgelist dataframe
 random_name_df <- function(nlinks = 100,iter=1000,prox=10,seed=444){
-set.seed(seed)
-df <- data.frame(source = randomNames(iter,which.names='both', name.order = 'first.last', name.sep=' '), target = '')
-df <- df[rep(seq_len(nrow(df)), sample(1:prox,nrow(df), replace=T)),]
-df <- df[sample(nrow(df),nlinks),] 
-df$target = sample(df$source,nrow(df), replace = T)
-df = df[df[,1]!=df[,2], ] 
-return(df)
+  set.seed(seed)
+  df <- data.frame(source = randomNames(iter,which.names='both', name.order = 'first.last', name.sep=' '), target = '')
+  df <- df[rep(seq_len(nrow(df)), sample(1:prox,nrow(df), replace=T)),]
+  df <- df[sample(nrow(df),nlinks),] 
+  df$target = sample(df$source,nrow(df), replace = T)
+  df = df[df[,1]!=df[,2], ] 
+  return(df)
 }
 
 mydf <- random_name_df()
